@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secret Access</title>
+    <!-- Tailwind CSS CDN for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom styles for Inter font and general layout */
+        body {
+            font-family: "Inter", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* Gradient background with red and black */
+            background: linear-gradient(to bottom right, #1a202c, #8b0000); /* Dark black to dark red */
+            margin: 0;
+            padding: 1rem; /* Add some padding for small screens */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+            color: #e2e8f0; /* Light text color for the body */
+        }
+        .container {
+            background-color: #2d3748; /* Slightly lighter dark background for container */
+            padding: 2.5rem; /* More padding */
+            border-radius: 1.5rem; /* More rounded corners */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Softer shadow for dark theme */
+            text-align: center;
+            max-width: 90%; /* Responsive width */
+            width: 400px; /* Max width for larger screens */
+        }
+        .input-field {
+            padding: 0.75rem 1rem; /* Adjusted padding */
+            border: 1px solid #4a5568; /* Darker gray border */
+            border-radius: 0.75rem; /* Rounded input */
+            width: 100%;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            background-color: #4a5568; /* Dark background for input */
+            color: #e2e8f0; /* Light text for input */
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Smooth transition */
+        }
+        .input-field:focus {
+            outline: none;
+            border-color: #ef4444; /* Red border on focus */
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.5); /* Red glow on focus */
+        }
+        .button-primary {
+            background-color: #ef4444; /* Red for dark theme */
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.3s ease-in-out;
+            width: 100%;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); /* Subtle glow */
+        }
+        .button-primary:hover {
+            background-color: #dc2626; /* Darker red on hover */
+            transform: translateY(-2px); /* Slight lift effect */
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.5); /* More intense glow */
+        }
+        .button-primary:disabled {
+            background-color: #9ca3af; /* Grey out when disabled */
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+        .copy-item {
+            display: inline-block; /* Allows padding and margin */
+            background-color: #ef4444; /* Red for copy items */
+            color: white; /* White text for copy items */
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            margin: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out, box-shadow 0.3s ease-in-out;
+            font-weight: 500;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); /* Subtle glow */
+        }
+        .copy-item:hover {
+            background-color: #dc2626; /* Slightly darker red on hover */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(239, 68, 68, 0.5); /* More intense glow */
+        }
+        .message-box {
+            background-color: #2f855a; /* Darker green for success */
+            color: #d1fae5; /* Lighter green text */
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            opacity: 0; /* Start hidden for fade-in */
+            transition: opacity 0.5s ease-in-out;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .error-message {
+            background-color: #c53030; /* Darker red for error */
+            color: #fee2e2; /* Lighter red text */
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+            opacity: 0; /* Start hidden for fade-in */
+            transition: opacity 0.5s ease-in-out;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Fade and transform transitions for content sections (no blur) */
+        .password-section-hidden {
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            pointer-events: none; /* Disable interactions when hidden */
+        }
+
+        .secret-content-hidden { /* Initial state for secret content (no blur) */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .secret-content-shown { /* Visible state for secret content (no blur) */
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .loading-message {
+            margin-top: 1rem;
+            color: #a0aec0;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="password-section">
+            <h2 class="text-2xl font-bold mb-6">Enter Password</h2>
+            <input type="password" id="passwordInput" class="input-field" placeholder="Password">
+            <button id="submitButton" class="button-primary">Submit</button>
+            <div id="loadingMessage" class="loading-message">Verifying...</div>
+            <div id="errorMessage" class="error-message"></div>
+        </div>
+
+        <div id="secret-content" class="hidden secret-content-hidden">
+            <h2 class="text-2xl font-bold mb-6">Secret Information</h2>
+            <p class="mb-4">Click to copy:</p>
+            <div class="flex flex-wrap justify-center gap-4">
+                <!-- Switched order of email and password copy items -->
+                <span id="emailCopy" class="copy-item" data-value="grade9dps67a@gmail.com">Email: grade9dps67a@gmail.com</span>
+                <span id="passwordCopy" class="copy-item" data-value="grade9@dps67a#123">Password: grade9@dps67a#123</span>
+            </div>
+            <div id="messageBox" class="message-box"></div>
+        </div>
+    </div>
+
+    <script>
+        // Get references to HTML elements
+        const passwordInput = document.getElementById('passwordInput');
+        const submitButton = document.getElementById('submitButton');
+        const passwordSection = document.getElementById('password-section');
+        const secretContent = document.getElementById('secret-content');
+        const emailCopy = document.getElementById('emailCopy');
+        const passwordCopy = document.getElementById('passwordCopy');
+        const messageBox = document.getElementById('messageBox');
+        const errorMessage = document.getElementById('errorMessage');
+        const loadingMessage = document.getElementById('loadingMessage');
+
+        // Define the correct password
+        const correctPassword = 'password';
+
+        /**
+         * Displays a message in the message box for a short duration with fade effect.
+         * @param {string} message - The message to display.
+         * @param {string} type - 'success' or 'error' to apply appropriate styling.
+         * @param {number} duration - How long the message should be visible before fading out (in ms).
+         * @param {function} [callback] - Optional callback function to execute after message fades out.
+         */
+        function showMessage(message, type, duration, callback) {
+            let targetMessageBox = type === 'success' ? messageBox : errorMessage;
+            targetMessageBox.textContent = message;
+            targetMessageBox.style.display = 'block';
+            setTimeout(() => {
+                targetMessageBox.style.opacity = '1'; // Fade in
+            }, 10); // Small delay to trigger transition
+
+            // Hide the message after 'duration' with a fade out
+            setTimeout(() => {
+                targetMessageBox.style.opacity = '0'; // Fade out
+                setTimeout(() => {
+                    targetMessageBox.style.display = 'none';
+                    if (callback) {
+                        callback();
+                    }
+                }, 500); // Wait for fade out to complete before hiding
+            }, duration);
+        }
+
+        /**
+         * Handles the trolling sequence when the correct password is entered.
+         */
+        function handleCorrectPasswordTrollingSequence() {
+            // Step 1: Show "Verifying..." for 3 seconds
+            loadingMessage.style.opacity = '1';
+            
+            setTimeout(() => {
+                loadingMessage.style.opacity = '0'; // Hide verifying message
+                
+                // Step 2: Show "Incorrect password." for 3 seconds
+                showMessage('Incorrect password. Please try again.', 'error', 3000, () => {
+                    // Step 3: Show "Access granted!" (troll version) for 1.5 seconds
+                    showMessage('Access granted!', 'success', 1500, () => {
+                        // After trolling sequence, reveal actual secret content
+                        passwordSection.classList.add('password-section-hidden');
+                        setTimeout(() => {
+                            passwordSection.classList.add('hidden'); // Fully hide after transition
+                            secretContent.classList.remove('hidden');
+                            secretContent.classList.remove('secret-content-hidden'); // Ensure it starts from hidden state
+                            secretContent.classList.add('secret-content-shown'); // Apply shown state for transition
+                            passwordInput.value = ''; // Clear password field
+                            
+                            // Display the actual "Access granted!" message for 1.5 seconds
+                            showMessage('Access granted!', 'success', 1500); 
+                        }, 700); // Match password-section-hidden transition duration
+                    });
+                });
+            }, 3000); // "Verifying..." duration
+        }
+
+        /**
+         * Copies text to the clipboard using document.execCommand.
+         * This method is used for broader compatibility within iframes.
+         * @param {string} text - The text to copy.
+         */
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            textarea.style.position = 'fixed'; // Prevent scrolling to bottom of page in some browsers
+            textarea.style.opacity = '0'; // Make it invisible
+            document.body.appendChild(textarea);
+            textarea.focus();
+            textarea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showMessage('Copied to clipboard!', 'success', 3000); // Standard message duration
+                } else {
+                    showMessage('Failed to copy.', 'error', 3000); // Standard message duration
+                }
+            } catch (err) {
+                console.error('Copy command failed', err);
+                showMessage('Failed to copy due to browser restrictions.', 'error', 3000); // Standard message duration
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
+
+        // Event listener for the submit button
+        submitButton.addEventListener('click', () => {
+            const enteredPassword = passwordInput.value;
+
+            // Disable input and button
+            passwordInput.disabled = true;
+            submitButton.disabled = true;
+            errorMessage.style.display = 'none'; // Hide any previous error message immediately
+            messageBox.style.display = 'none'; // Hide any previous success message immediately
+
+            if (enteredPassword === correctPassword) {
+                handleCorrectPasswordTrollingSequence();
+            } else {
+                // If any other password is entered, refresh the page immediately
+                location.reload();
+            }
+        });
+
+        // Event listener for copying email (now copies password)
+        emailCopy.addEventListener('click', () => {
+            const password = passwordCopy.getAttribute('data-value'); // Get password from passwordCopy
+            copyToClipboard(password);
+        });
+
+        // Event listener for copying password (now copies email)
+        passwordCopy.addEventListener('click', () => {
+            const email = emailCopy.getAttribute('data-value'); // Get email from emailCopy
+            copyToClipboard(email);
+        });
+
+        // Allow pressing Enter key to submit password
+        passwordInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                submitButton.click(); // Simulate a click on the submit button
+            }
+        });
+    </script>
+</body>
+</html>
