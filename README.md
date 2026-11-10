@@ -4,6 +4,10 @@ Prank password-protected secret page, rebuilt as a React + Vite app with [coss u
 
 **Git repo:** https://github.com/Chandrasen74/password.git
 
+## About
+
+A prank "password protected" page — type `password` to get in, pick a grade, and the background shifts between yellow (grade 9) and red (grade 10) with an animated ASCII gradient. Built as a React + Vite single page, deployed to GitHub Pages from `docs/`, with commits SSH-signed so they show as Verified.
+
 ## Live site
 
 [https://chandrasen74.github.io/password/](https://chandrasen74.github.io/password/)
