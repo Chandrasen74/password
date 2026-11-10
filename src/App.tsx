@@ -96,7 +96,7 @@ export default function App() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black text-foreground p-4">
+    <div className="relative h-screen overflow-hidden bg-black text-foreground p-4">
       <div className="bg-mesh" aria-hidden="true">
         <div className="bg-mesh-blob bg-mesh-blob-1" />
         <div className="bg-mesh-blob bg-mesh-blob-2" />
