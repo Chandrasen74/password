@@ -95,8 +95,20 @@ export default function App() {
     setCopied("copied 💀 (def not pass)");
   }
 
+  const themeName = pickedGrade === 10 ? "grade-10" : pickedGrade === 9 ? "grade-9" : "default";
+  const themeBg =
+    pickedGrade === 10
+      ? "radial-gradient(circle at 50% 50%, #7f1d1d 0%, #000000 55%)"
+      : pickedGrade === 9
+        ? "radial-gradient(circle at 50% 50%, #713f12 0%, #000000 55%)"
+        : "black";
+
   return (
-    <div className="relative h-screen overflow-hidden bg-black text-foreground p-4">
+    <div
+      className={`relative h-screen overflow-hidden text-foreground p-4 theme-transition`}
+      data-theme={themeName}
+      style={{ background: themeBg }}
+    >
       <div className="bg-mesh" aria-hidden="true">
         <div className="bg-mesh-blob bg-mesh-blob-1" />
         <div className="bg-mesh-blob bg-mesh-blob-2" />
