@@ -94,3 +94,41 @@
   transform: translateY(20px);
   pointer-events: none;
 }
+
+.bg-mesh {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: -1;
+}
+.bg-mesh-blob {
+  position: absolute;
+  filter: blur(90px);
+  opacity: 0.28;
+  border-radius: 50%;
+}
+.bg-mesh-blob-1 {
+  top: -10%;
+  left: 10%;
+  width: 55vw;
+  height: 55vw;
+  background: #38bdf8;
+  animation: mesh-morph-1 14s ease-in-out infinite alternate;
+}
+.bg-mesh-blob-2 {
+  bottom: -5%;
+  right: 15%;
+  width: 60vw;
+  height: 60vw;
+  background: #a5d8ff;
+  animation: mesh-morph-2 16s ease-in-out infinite alternate-reverse;
+}
+@keyframes mesh-morph-1 {
+  0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; transform: translate(0, 0) rotate(0deg); }
+  100% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; transform: translate(40px, -60px) rotate(12deg); }
+}
+@keyframes mesh-morph-2 {
+  0% { border-radius: 40% 50% 60% 70% / 50% 60% 70% 40%; transform: translate(0, 0) rotate(0deg); }
+  100% { border-radius: 60% 30% 40% 70% / 70% 60% 50% 80%; transform: translate(-30px, 40px) rotate(-10deg); }
+}
