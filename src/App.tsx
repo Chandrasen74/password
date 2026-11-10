@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import GradientASCII from "@/components/GradientASCII";
 
 type View = "login" | "grades" | "details";
 
@@ -95,142 +96,162 @@ export default function App() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-black via-zinc-950 to-black p-4">
-      <div className="relative w-[380px]">
-        <Card
-          className={`glass fade-panel ${visible ? "fade-enter" : "fade-exit"}`}
-        >
-          {displayed === "login" && (
-            <>
-              <CardHeader>
-                <CardTitle className="text-xl lowercase">secret acess</CardTitle>
-                <CardDescription className="lowercase">
-                  enter pass to continue ig
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <Field>
-                  <FieldLabel className="lowercase">password</FieldLabel>
-                  <Input
-                    type="password"
-                    placeholder="enter pass bro"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter") {
-                        e.preventDefault();
-                        setMsgVariant("warning");
-                        setMsg("move ur mouse bro 😭");
-                      }
-                    }}
-                    nativeInput
-                  />
-                </Field>
-                {caps && (
-                  <p className="text-xs lowercase text-yellow-400">{caps}</p>
-                )}
-                <Button
-                  className="w-full soft-glow lowercase"
-                  size="lg"
-                  onClick={checkPassword}
-                >
-                  login ig
-                </Button>
-                {msg && (
-                  <Alert variant={msgVariant === "error" ? "error" : "warning"}>
-                    <AlertDescription className="lowercase">{msg}</AlertDescription>
-                  </Alert>
-                )}
-                <button
-                  type="button"
-                  onClick={() =>
-                    alert('bro if u forgot "password" then idk what to say 😭')
-                  }
-                  className="inline-flex items-center gap-1.5 text-xs lowercase text-muted-foreground hover:text-foreground"
-                >
-                  <ShieldQuestion className="size-3.5" />
-                  forgot pass lol?
-                </button>
-              </CardContent>
-            </>
-          )}
+    <div className="relative min-h-screen overflow-hidden bg-black text-foreground p-4">
+      <div
+        className="pointer-events-none absolute inset-0 -z-0"
+        aria-hidden="true"
+      >
+        <GradientASCII
+          colors={["#1e3fd8", "#f6f8ff", "#a5d8ff", "#38bdf8"]}
+          shape="horizon"
+          characters=" =+xX0S8#@"
+          cellSize={18}
+          density={0.8}
+          glyphOpacity={0.85}
+          glow={0.2}
+          speed={1}
+          gradientOpacity={0.9}
+          grain={0.08}
+          intro={true}
+        />
+      </div>
+      <div className="relative z-10 flex min-h-screen items-center justify-center">
+        <div className="relative w-[380px]">
+          <Card
+            className={`glass fade-panel ${visible ? "fade-enter" : "fade-exit"}`}
+          >
+            {displayed === "login" && (
+              <>
+                <CardHeader>
+                  <CardTitle className="text-xl lowercase">secret acess</CardTitle>
+                  <CardDescription className="lowercase">
+                    enter pass to continue ig
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <Field>
+                    <FieldLabel className="lowercase">password</FieldLabel>
+                    <Input
+                      type="password"
+                      placeholder="enter pass bro"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          setMsgVariant("warning");
+                          setMsg("move ur mouse bro 😭");
+                        }
+                      }}
+                      nativeInput
+                    />
+                  </Field>
+                  {caps && (
+                    <p className="text-xs lowercase text-yellow-400">{caps}</p>
+                  )}
+                  <Button
+                    className="w-full soft-glow lowercase"
+                    size="lg"
+                    onClick={checkPassword}
+                  >
+                    login ig
+                  </Button>
+                  {msg && (
+                    <Alert variant={msgVariant === "error" ? "error" : "warning"}>
+                      <AlertDescription className="lowercase">{msg}</AlertDescription>
+                    </Alert>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() =>
+                      alert('bro if u forgot "password" then idk what to say 😭')
+                    }
+                    className="inline-flex items-center gap-1.5 text-xs lowercase text-muted-foreground hover:text-foreground"
+                  >
+                    <ShieldQuestion className="size-3.5" />
+                    forgot pass lol?
+                  </button>
+                </CardContent>
+              </>
+            )}
 
-          {displayed === "grades" && (
-            <>
-              <CardHeader>
-                <button
-                  type="button"
-                  onClick={() => switchView("login")}
-                  className="mb-1 inline-flex items-center gap-1 text-xs lowercase text-muted-foreground hover:text-foreground"
-                >
-                  <ArrowLeft className="size-3.5" /> go back
-                </button>
-                <CardTitle className="text-xl lowercase">
-                  pick ur class or smth
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button
-                  className="w-full soft-glow lowercase"
-                  size="xl"
-                  onClick={() => openGrade(10)}
-                >
-                  grade 10 (prob not)
-                </Button>
-                <Button
-                  variant="secondary"
-                  className="w-full lowercase"
-                  size="xl"
-                  onClick={() => openGrade(9)}
-                >
-                  grade 9 (maybe?)
-                </Button>
-              </CardContent>
-            </>
-          )}
+            {displayed === "grades" && (
+              <>
+                <CardHeader>
+                  <button
+                    type="button"
+                    onClick={() => switchView("login")}
+                    className="mb-1 inline-flex items-center gap-1 text-xs lowercase text-muted-foreground hover:text-foreground"
+                  >
+                    <ArrowLeft className="size-3.5" /> go back
+                  </button>
+                  <CardTitle className="text-xl lowercase">
+                    pick ur class or smth
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button
+                    className="w-full soft-glow lowercase"
+                    size="xl"
+                    onClick={() => openGrade(10)}
+                  >
+                    grade 10 (prob not)
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    className="w-full lowercase"
+                    size="xl"
+                    onClick={() => openGrade(9)}
+                  >
+                    grade 9 (maybe?)
+                  </Button>
+                </CardContent>
+              </>
+            )}
 
-          {displayed === "details" && (
-            <>
-              <CardHeader>
-                <button
-                  type="button"
-                  onClick={() => switchView("grades")}
-                  className="mb-1 inline-flex items-center gap-1 text-xs lowercase text-muted-foreground hover:text-foreground"
-                >
-                  <ArrowLeft className="size-3.5" /> go back
-                </button>
-                <CardTitle className="text-xl lowercase text-center">
-                  grade {pickedGrade} (or is it 🤨)
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <Button
-                  variant="outline"
-                  className="w-full justify-start gap-3 lowercase text-left"
-                  size="xl"
-                  onClick={copyEmail}
-                >
-                  <Mail className="size-4.5 shrink-0 opacity-70" />
-                  <span className="truncate">email: {email}</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  className="w-full justify-start gap-3 lowercase text-left"
-                  size="xl"
-                  onClick={copyPass}
-                >
-                  <KeyRound className="size-4.5 shrink-0 opacity-70" />
-                  <span className="truncate">password: {pass}</span>
-                </Button>
-                {copied && (
-                  <Alert variant="success">
-                    <AlertDescription className="lowercase">{copied}</AlertDescription>
-                  </Alert>
-                )}
-              </CardContent>
-            </>
-          )}
-        </Card>
+            {displayed === "details" && (
+              <>
+                <CardHeader>
+                  <button
+                    type="button"
+                    onClick={() => switchView("grades")}
+                    className="mb-1 inline-flex items-center gap-1 text-xs lowercase text-muted-foreground hover:text-foreground"
+                  >
+                    <ArrowLeft className="size-3.5" /> go back
+                  </button>
+                  <CardTitle className="text-xl lowercase text-center">
+                    grade {pickedGrade} (or is it 🤨)
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-3 lowercase text-left"
+                    size="xl"
+                    onClick={copyEmail}
+                  >
+                    <Mail className="size-4.5 shrink-0 opacity-70" />
+                    <span className="truncate">email: {email}</span>
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start gap-3 lowercase text-left"
+                    size="xl"
+                    onClick={copyPass}
+                  >
+                    <KeyRound className="size-4.5 shrink-0 opacity-70" />
+                    <span className="truncate">password: {pass}</span>
+                  </Button>
+                  {copied && (
+                    <Alert variant="success">
+                      <AlertDescription className="lowercase">{copied}</AlertDescription>
+                    </Alert>
+                  )}
+                </CardContent>
+              </>
+            )}
+          </Card>
+        </div>
       </div>
     </div>
   );
