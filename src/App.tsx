@@ -98,15 +98,15 @@ export default function App() {
   const themeName = pickedGrade === 10 ? "grade-10" : pickedGrade === 9 ? "grade-9" : "default";
   const themeBg =
     pickedGrade === 10
-      ? "radial-gradient(circle at 50% 50%, #7f1d1d 0%, #000000 55%)"
+      ? "radial-gradient(circle at 50% 50%, #064e3b 0%, #000000 55%)"
       : pickedGrade === 9
-        ? "radial-gradient(circle at 50% 50%, #713f12 0%, #000000 55%)"
+        ? "radial-gradient(circle at 50% 50%, #7f1d1d 0%, #000000 55%)"
         : "black";
   const themeColors =
     pickedGrade === 10
-      ? ["#ef4444", "#fca5a5", "#f87171", "#b91c1c"]
+      ? ["#10b981", "#34d399", "#6ee7b7", "#059669"]
       : pickedGrade === 9
-        ? ["#facc15", "#fef3c7", "#fde047", "#a16207"]
+        ? ["#ef4444", "#fca5a5", "#f87171", "#b91c1c"]
         : ["#1e3fd8", "#f6f8ff", "#a5d8ff", "#38bdf8"];
 
   return (
