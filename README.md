@@ -50,4 +50,4 @@ tsconfig.json
 
 ## Commit signing
 
-Commits are SSH-signed with the `id_ed25519_signing` key and show as **Verified** on GitHub.
+Commits are SSH-signed and show as **Verified** on GitHub.
