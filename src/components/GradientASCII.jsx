@@ -755,21 +755,17 @@ const GradientASCII = ({
       const s = settingsRef.current;
       const dt = last ? clamp((now - last) / 1000, 0.001, 0.05) : 1 / 60;
       last = now;
-      if (!reduce) {
-        time += dt * s.speed * 0.5;
-        glyphTime += dt * Math.max(s.speed, 0.15);
-      }
+      time += dt * s.speed * 0.5;
+      glyphTime += dt * Math.max(s.speed, 0.15);
       if (introClock < 1) introClock = Math.min(1, introClock + dt / INTRO_SECONDS);
       grainClock += dt;
-      if (!reduce && grainClock > 1 / 24) {
+      if (grainClock > 1 / 24) {
         grainClock = 0;
         frameSeed = (frameSeed + 1) % 97;
       }
       updateInput(dt);
       draw();
-      const busy = !reduce || introClock < 1 || clicks.length > 0 || trail.length > 0;
-      if (busy) raf = requestAnimationFrame(frame);
-      else last = 0;
+      raf = requestAnimationFrame(frame);
     };
 
     function wake() {
