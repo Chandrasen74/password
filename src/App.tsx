@@ -102,6 +102,12 @@ export default function App() {
       : pickedGrade === 9
         ? "radial-gradient(circle at 50% 50%, #713f12 0%, #000000 55%)"
         : "black";
+  const themeColors =
+    pickedGrade === 10
+      ? ["#ef4444", "#fca5a5", "#f87171", "#b91c1c"]
+      : pickedGrade === 9
+        ? ["#facc15", "#fef3c7", "#fde047", "#a16207"]
+        : ["#1e3fd8", "#f6f8ff", "#a5d8ff", "#38bdf8"];
 
   return (
     <div
@@ -118,7 +124,7 @@ export default function App() {
         aria-hidden="true"
       >
         <GradientASCII
-          colors={["#1e3fd8", "#f6f8ff", "#a5d8ff", "#38bdf8"]}
+          colors={themeColors}
           shape="horizon"
           characters=" =+xX0S8#@"
           cellSize={18}

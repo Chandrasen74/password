@@ -124,6 +124,7 @@
   height: 55vw;
   background: var(--mesh-color-1, #38bdf8);
   animation: mesh-morph-1 14s ease-in-out infinite alternate;
+  transition: background-color 1s ease;
 }
 .bg-mesh-blob-2 {
   bottom: -5%;
@@ -132,6 +133,7 @@
   height: 60vw;
   background: var(--mesh-color-2, #a5d8ff);
   animation: mesh-morph-2 16s ease-in-out infinite alternate-reverse;
+  transition: background-color 1s ease;
 }
 
 [data-theme="grade-10"] {
