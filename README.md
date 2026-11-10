@@ -2,6 +2,8 @@
 
 Prank password-protected secret page, rebuilt as a React + Vite app with [coss ui](https://github.com/cosscom/ui) components and an animated [GradientASCII](https://reactbits.dev/) background.
 
+**Git repo:** https://github.com/Chandrasen74/password.git
+
 ## Live site
 
 [https://chandrasen74.github.io/password/](https://chandrasen74.github.io/password/)
