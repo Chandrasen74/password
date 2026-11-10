@@ -24,7 +24,7 @@ export default function App() {
   const [msgVariant, setMsgVariant] = useState<"error" | "warning">("error");
   const [caps, setCaps] = useState("");
   const [currentGrade, setCurrentGrade] = useState(9);
-  const [pickedGrade, setPickedGrade] = useState(9);
+  const [pickedGrade, setPickedGrade] = useState<9 | 10 | null>(null);
   const [copied, setCopied] = useState("");
 
   useEffect(() => {
@@ -73,7 +73,7 @@ export default function App() {
     }
   }
 
-  function openGrade(g: number) {
+  function openGrade(g: 9 | 10) {
     const actual = g === 10 ? 9 : 10;
     setPickedGrade(g);
     setCurrentGrade(actual);
