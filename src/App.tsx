@@ -109,11 +109,14 @@ export default function App() {
       if (next === 1) {
         if (forgotTimer.current) clearTimeout(forgotTimer.current);
         forgotTimer.current = setTimeout(() => setForgotClicks(0), 2000);
+        setMsgVariant("warning");
+        setMsg('bro if u forgot "password" then idk what to say 😭');
         return 1;
       }
       if (next === 2) {
         if (forgotTimer.current) clearTimeout(forgotTimer.current);
         setForgotClicks(0);
+        setMsg("");
         setShowEasterEgg(true);
         setEasterEggGrade(pickedGrade ?? null);
         setRefineStage("queued");
@@ -318,19 +321,19 @@ export default function App() {
                     <ArrowLeft className="size-3.5" /> go back
                   </button>
                 </CardHeader>
-                <CardContent className="space-y-6">
+                <CardContent className="space-y-5">
                   <div className="flex items-center justify-center">
                     <RefineFrame
                       status={refineStage}
                       children={
                         <img
-                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%231a1a1a'/%3E%3Ccircle cx='100' cy='75' r='40' fill='none' stroke='var(--rf-ink)' stroke-width='3'/%3E%3Cline x1='70' y1='75' x2='130' y2='75' stroke='var(--rf-ink)' stroke-width='3'/%3E%3Cline x1='100' y1='45' x2='100' y2='105' stroke='var(--rf-ink)' stroke-width='3'/%3E%3Ctext x='100' y='140' text-anchor='middle' fill='var(--rf-ink)' font-family='monospace' font-size='12'%3Egrade %7BeasterEggGrade%7D%3C/text%3E%3C/svg%3E"
+                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231a1a1a'/%3E%3Ccircle cx='200' cy='140' r='75' fill='none' stroke='var(--rf-ink)' stroke-width='6'/%3E%3Cline x1='140' y1='140' x2='260' y2='140' stroke='var(--rf-ink)' stroke-width='6'/%3E%3Cline x1='200' y1='80' x2='200' y2='200' stroke='var(--rf-ink)' stroke-width='6'/%3E%3Ctext x='200' y='272' text-anchor='middle' fill='var(--rf-ink)' font-family='monospace' font-size='26'%3Egrade %7BeasterEggGrade%7D%3C/text%3E%3C/svg%3E"
                           alt="easter egg"
                           crossOrigin="anonymous"
                           style={{ width: "100%", height: "100%", objectFit: "contain" }}
                         />
                       }
-                      width={200}
+                      width={300}
                       radius={16}
                       background={
                         easterEggGrade === 9 ? "#7f1d1d" : easterEggGrade === 10 ? "#064e3b" : "#27272a"
@@ -360,7 +363,7 @@ export default function App() {
                       color={
                         easterEggGrade === 9 ? "#ef4444" : easterEggGrade === 10 ? "#10b981" : "#f5f5f5"
                       }
-                      className="text-xl text-center mb-2"
+                      className="text-lg sm:text-xl text-center mb-2"
                     />
                   )}
                 </CardContent>
