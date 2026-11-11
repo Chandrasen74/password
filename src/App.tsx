@@ -127,13 +127,16 @@ export default function App() {
     });
   }
 
-  function handleRefineComplete() {
-    setRefineStage("complete");
-    setTimeout(() => {
-      setShowEasterEgg(false);
-      setRefineStage("complete");
-    }, 3000);
-  }
+  useEffect(() => {
+    if (!showEasterEgg) return;
+    setRefineStage("generating");
+    const t1 = setTimeout(() => setRefineStage("refining"), 700);
+    const t2 = setTimeout(() => setRefineStage("complete"), 1400);
+    return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [showEasterEgg]);
 
   const themeName = pickedGrade === 10 ? "grade-10" : pickedGrade === 9 ? "grade-9" : "default";
   const themeBg =
@@ -345,7 +348,7 @@ export default function App() {
                       }
                       stageDuration={400}
                       sweep
-                      showStatus={refineStage !== "complete"}
+                      showStatus={false}
                       hideAfter={0}
                     />
                   </div>
