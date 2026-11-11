@@ -173,8 +173,8 @@ export default function App() {
           intro={true}
         />
       </div>
-      <div className="relative z-10 flex min-h-screen items-center justify-center">
-        <div className="relative w-[380px]">
+      <div className="relative z-10 flex h-screen justify-center overflow-y-auto overflow-x-hidden">
+        <div className="relative w-[380px] max-w-full my-auto py-6 px-2">
           <Card
             className={`glass fade-panel ${visible ? "fade-enter" : "fade-exit"}`}
           >
@@ -313,13 +313,10 @@ export default function App() {
                   <button
                     type="button"
                     onClick={() => setShowEasterEgg(false)}
-                    className="mb-1 inline-flex items-center gap-1 text-xs lowercase text-muted-foreground hover:text-foreground"
+                    className="inline-flex items-center gap-1 text-xs lowercase text-muted-foreground hover:text-foreground"
                   >
                     <ArrowLeft className="size-3.5" /> go back
                   </button>
-                  <CardTitle className="text-xl lowercase text-center">
-                    unlocking grade {easterEggGrade ?? "?"}
-                  </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="flex items-center justify-center">
