@@ -152,6 +152,16 @@ export default function RefineFrame({
   const live = useRef<LiveState>({ status: status as RefineFrameStatus, stageDuration, sweep, reduce: false });
   const [mosaic, setMosaic] = useState(false);
   const [resolved, setResolved] = useState(false);
+  const [reduced, setReduced] = useState(false);
+  live.current = { status: status as RefineFrameStatus, stageDuration, sweep, reduce: reduced };
+
+  useEffect(() => {
+    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const sync = () => setReduced(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   const [chip, setChip] = useState(showStatus);
   const timer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
@@ -238,19 +248,15 @@ export default function RefineFrame({
   };
 
   useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const sync = () => {
-      live.current.reduce = mq.matches;
-    };
-    sync();
-    mq.addEventListener('change', sync);
-    return () => mq.removeEventListener('change', sync);
-  }, []);
-
-  useEffect(() => {
     const img = printRef.current?.querySelector('img');
     if (!img) {
       setMosaic(false);
+      return undefined;
+    }
+    if (reduced) {
+      // Reduced motion: skip the canvas mosaic entirely, the image just loads in sharp.
+      setMosaic(false);
+      setResolved(true);
       return undefined;
     }
     let gone = false;
@@ -266,14 +272,15 @@ export default function RefineFrame({
       img.removeEventListener('load', start);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [children, status]);
+  }, [children, status, reduced]);
 
   useEffect(() => {
+    if (reduced) return undefined;
     const img = printRef.current?.querySelector('img');
     if (!img) return undefined;
     wake();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [status, width, aspectRatio]);
+  }, [status, width, aspectRatio, reduced]);
 
   useEffect(() => {
     const s = sim.current;

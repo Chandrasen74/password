@@ -346,7 +346,7 @@ export default function App() {
                       color={
                         easterEggGrade === 9 ? "#ef4444" : easterEggGrade === 10 ? "#10b981" : "#f5f5f5"
                       }
-                      stageDuration={400}
+                      stageDuration={250}
                       sweep
                       showStatus={false}
                       hideAfter={0}
