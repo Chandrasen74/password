@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, KeyRound, Mail, ShieldQuestion } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
@@ -12,8 +12,10 @@ import {
 import { Field, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import GradientASCII from "@/components/GradientASCII";
+import RefineFrame from "@/components/RefineFrame/RefineFrame";
+import BlurText from "@/components/BlurText/BlurText";
 
-type View = "login" | "grades" | "details";
+type View = "login" | "grades" | "details" | "easter";
 
 export default function App() {
   const [view, setView] = useState<View>("login");
@@ -26,6 +28,12 @@ export default function App() {
   const [currentGrade, setCurrentGrade] = useState(9);
   const [pickedGrade, setPickedGrade] = useState<9 | 10 | null>(null);
   const [copied, setCopied] = useState("");
+  const [forgotClicks, setForgotClicks] = useState(0);
+  const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [easterEggGrade, setEasterEggGrade] = useState<9 | 10 | null>(null);
+  const [refineStage, setRefineStage] = useState<"queued" | "generating" | "refining" | "complete">("complete");
+
+  const forgotTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const id = setInterval(() => {
@@ -93,6 +101,34 @@ export default function App() {
     // intentionally copies email (same as original)
     await navigator.clipboard.writeText(email);
     setCopied("copied 💀 (def not pass)");
+  }
+
+  function handleForgotClick() {
+    setForgotClicks(prev => {
+      const next = prev + 1;
+      if (next === 1) {
+        if (forgotTimer.current) clearTimeout(forgotTimer.current);
+        forgotTimer.current = setTimeout(() => setForgotClicks(0), 2000);
+        return 1;
+      }
+      if (next === 2) {
+        if (forgotTimer.current) clearTimeout(forgotTimer.current);
+        setForgotClicks(0);
+        setShowEasterEgg(true);
+        setEasterEggGrade(pickedGrade ?? null);
+        setRefineStage("queued");
+        return 0;
+      }
+      return 0;
+    });
+  }
+
+  function handleRefineComplete() {
+    setRefineStage("complete");
+    setTimeout(() => {
+      setShowEasterEgg(false);
+      setRefineStage("complete");
+    }, 3000);
   }
 
   const themeName = pickedGrade === 10 ? "grade-10" : pickedGrade === 9 ? "grade-9" : "default";
@@ -185,9 +221,7 @@ export default function App() {
                   )}
                   <button
                     type="button"
-                    onClick={() =>
-                      alert('bro if u forgot "password" then idk what to say 😭')
-                    }
+                    onClick={handleForgotClick}
                     className="inline-flex items-center gap-1.5 text-xs lowercase text-muted-foreground hover:text-foreground"
                   >
                     <ShieldQuestion className="size-3.5" />
@@ -268,6 +302,69 @@ export default function App() {
                     <Alert variant="success">
                       <AlertDescription className="lowercase">{copied}</AlertDescription>
                     </Alert>
+                  )}
+                </CardContent>
+              </>
+            )}
+
+            {showEasterEgg && (
+              <>
+                <CardHeader>
+                  <button
+                    type="button"
+                    onClick={() => setShowEasterEgg(false)}
+                    className="mb-1 inline-flex items-center gap-1 text-xs lowercase text-muted-foreground hover:text-foreground"
+                  >
+                    <ArrowLeft className="size-3.5" /> go back
+                  </button>
+                  <CardTitle className="text-xl lowercase text-center">
+                    unlocking grade {easterEggGrade ?? "?"}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="flex items-center justify-center">
+                    <RefineFrame
+                      status={refineStage}
+                      children={
+                        <img
+                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='150' viewBox='0 0 200 150'%3E%3Crect width='200' height='150' fill='%231a1a1a'/%3E%3Ccircle cx='100' cy='75' r='40' fill='none' stroke='var(--rf-ink)' stroke-width='3'/%3E%3Cline x1='70' y1='75' x2='130' y2='75' stroke='var(--rf-ink)' stroke-width='3'/%3E%3Cline x1='100' y1='45' x2='100' y2='105' stroke='var(--rf-ink)' stroke-width='3'/%3E%3Ctext x='100' y='140' text-anchor='middle' fill='var(--rf-ink)' font-family='monospace' font-size='12'%3Egrade %7BeasterEggGrade%7D%3C/text%3E%3C/svg%3E"
+                          alt="easter egg"
+                          crossOrigin="anonymous"
+                          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                        />
+                      }
+                      width={200}
+                      radius={16}
+                      background={
+                        easterEggGrade === 9 ? "#7f1d1d" : easterEggGrade === 10 ? "#064e3b" : "#27272a"
+                      }
+                      color={
+                        easterEggGrade === 9 ? "#ef4444" : easterEggGrade === 10 ? "#10b981" : "#f5f5f5"
+                      }
+                      stageDuration={400}
+                      sweep
+                      showStatus={refineStage !== "complete"}
+                      hideAfter={0}
+                    />
+                  </div>
+                  {refineStage === "complete" && (
+                    <BlurText
+                      text='ab aagaya yaad "password" ?'
+                      effect="blur"
+                      animateBy="words"
+                      direction="top"
+                      staggerFrom="start"
+                      trigger="load"
+                      delay={200}
+                      stepDuration={0.35}
+                      blur={10}
+                      distance={50}
+                      loop={false}
+                      color={
+                        easterEggGrade === 9 ? "#ef4444" : easterEggGrade === 10 ? "#10b981" : "#f5f5f5"
+                      }
+                      className="text-xl text-center mb-2"
+                    />
                   )}
                 </CardContent>
               </>
