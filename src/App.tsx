@@ -154,7 +154,7 @@ export default function App() {
 
   return (
     <div
-      className={`relative h-screen overflow-hidden text-foreground p-4 theme-transition`}
+      className="relative min-h-[100dvh] overflow-x-hidden text-foreground p-3 sm:p-4 theme-transition"
       data-theme={themeName}
       style={{ background: themeBg }}
     >
@@ -180,8 +180,8 @@ export default function App() {
           intro={true}
         />
       </div>
-      <div className="relative z-10 flex h-screen justify-center overflow-y-auto overflow-x-hidden">
-        <div className="relative w-[380px] max-w-full my-auto py-6 px-2">
+      <div className="relative z-10 flex min-h-[100dvh] justify-center overflow-y-auto">
+        <div className="relative w-full max-w-[380px] my-auto py-6 px-1">
           <Card
             className={`glass fade-panel ${visible ? "fade-enter" : "fade-exit"}`}
           >
