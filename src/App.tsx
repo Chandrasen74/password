@@ -139,24 +139,33 @@ export default function App() {
   }, [showEasterEgg]);
 
   const themeName = pickedGrade === 10 ? "grade-10" : pickedGrade === 9 ? "grade-9" : "default";
-  const themeBg =
+  const gradeBg =
     pickedGrade === 10
       ? "radial-gradient(circle at 50% 50%, #064e3b 0%, #000000 55%)"
       : pickedGrade === 9
         ? "radial-gradient(circle at 50% 50%, #7f1d1d 0%, #000000 55%)"
         : "black";
-  const themeColors =
+  const gradeColors =
     pickedGrade === 10
       ? ["#10b981", "#34d399", "#6ee7b7", "#059669"]
       : pickedGrade === 9
         ? ["#ef4444", "#fca5a5", "#f87171", "#b91c1c"]
         : ["#1e3fd8", "#f6f8ff", "#a5d8ff", "#38bdf8"];
 
+  const easterBg = "radial-gradient(circle at 50% 50%, #831843 0%, #000000 55%)";
+  const easterColors = ["#ec4899", "#f9a8d4", "#f472b6", "#be185d"];
+  const themeBg = showEasterEgg ? easterBg : gradeBg;
+  const themeColors = showEasterEgg ? easterColors : gradeColors;
+  const asciiCharacters = showEasterEgg ? "♥♡❤❥♥♡" : " =+xX0S8#@";
+  const meshStyle = showEasterEgg
+    ? ({ "--mesh-color-1": "#ec4899", "--mesh-color-2": "#f9a8d4" } as React.CSSProperties)
+    : undefined;
+
   return (
     <div
       className="app-shell relative text-foreground p-3 sm:p-4 theme-transition"
       data-theme={themeName}
-      style={{ background: themeBg }}
+      style={{ background: themeBg, ...meshStyle }}
     >
       <div className="bg-mesh" aria-hidden="true">
         <div className="bg-mesh-blob bg-mesh-blob-1" />
@@ -169,7 +178,7 @@ export default function App() {
         <GradientASCII
           colors={themeColors}
           shape="horizon"
-          characters=" =+xX0S8#@"
+          characters={asciiCharacters}
           cellSize={18}
           density={0.8}
           glyphOpacity={0.85}
