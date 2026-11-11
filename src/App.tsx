@@ -154,7 +154,7 @@ export default function App() {
 
   return (
     <div
-      className="relative min-h-[100dvh] overflow-x-hidden text-foreground p-3 sm:p-4 theme-transition"
+      className="app-shell relative text-foreground p-3 sm:p-4 theme-transition"
       data-theme={themeName}
       style={{ background: themeBg }}
     >
@@ -180,7 +180,7 @@ export default function App() {
           intro={true}
         />
       </div>
-      <div className="relative z-10 flex min-h-[100dvh] justify-center overflow-y-auto">
+      <div className="app-content relative z-10 flex flex-col items-center">
         <div className="relative w-full max-w-[380px] my-auto py-6 px-1">
           <Card
             className={`glass fade-panel ${visible ? "fade-enter" : "fade-exit"}`}
@@ -334,7 +334,7 @@ export default function App() {
                           src={easterEggImage}
                           alt="easter egg"
                           crossOrigin="anonymous"
-                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                          style={{ width: "100%", height: "100%", objectFit: "contain" }}
                         />
                       }
                       width={300}
