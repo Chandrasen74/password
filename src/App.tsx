@@ -14,6 +14,7 @@ import { Input } from "@/components/ui/input";
 import GradientASCII from "@/components/GradientASCII";
 import RefineFrame from "@/components/RefineFrame/RefineFrame";
 import BlurText from "@/components/BlurText/BlurText";
+import easterEggImage from "@/assets/easter-egg.webp";
 
 type View = "login" | "grades" | "details" | "easter";
 
@@ -327,14 +328,15 @@ export default function App() {
                       status={refineStage}
                       children={
                         <img
-                          src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='300' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%231a1a1a'/%3E%3Ccircle cx='200' cy='140' r='75' fill='none' stroke='var(--rf-ink)' stroke-width='6'/%3E%3Cline x1='140' y1='140' x2='260' y2='140' stroke='var(--rf-ink)' stroke-width='6'/%3E%3Cline x1='200' y1='80' x2='200' y2='200' stroke='var(--rf-ink)' stroke-width='6'/%3E%3Ctext x='200' y='272' text-anchor='middle' fill='var(--rf-ink)' font-family='monospace' font-size='26'%3Egrade %7BeasterEggGrade%7D%3C/text%3E%3C/svg%3E"
+                          src={easterEggImage}
                           alt="easter egg"
                           crossOrigin="anonymous"
-                          style={{ width: "100%", height: "100%", objectFit: "contain" }}
+                          style={{ width: "100%", height: "100%", objectFit: "cover" }}
                         />
                       }
                       width={300}
                       radius={16}
+                      aspectRatio="3 / 4"
                       background={
                         easterEggGrade === 9 ? "#7f1d1d" : easterEggGrade === 10 ? "#064e3b" : "#27272a"
                       }
