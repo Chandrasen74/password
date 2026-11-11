@@ -31,6 +31,7 @@ export default function App() {
   const [copied, setCopied] = useState("");
   const [forgotClicks, setForgotClicks] = useState(0);
   const [showEasterEgg, setShowEasterEgg] = useState(false);
+  const [easterEggVisible, setEasterEggVisible] = useState(false);
   const [easterEggGrade, setEasterEggGrade] = useState<9 | 10 | null>(null);
   const [refineStage, setRefineStage] = useState<"queued" | "generating" | "refining" | "complete">("complete");
 
@@ -104,6 +105,21 @@ export default function App() {
     setCopied("copied 💀 (def not pass)");
   }
 
+  function openEasterEgg() {
+    setShowEasterEgg(true);
+    setEasterEggVisible(false);
+    setEasterEggGrade(pickedGrade ?? null);
+    setRefineStage("queued");
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => setEasterEggVisible(true));
+    });
+  }
+
+  function closeEasterEgg() {
+    setEasterEggVisible(false);
+    setTimeout(() => setShowEasterEgg(false), 350);
+  }
+
   function handleForgotClick() {
     setForgotClicks(prev => {
       const next = prev + 1;
@@ -118,9 +134,7 @@ export default function App() {
         if (forgotTimer.current) clearTimeout(forgotTimer.current);
         setForgotClicks(0);
         setMsg("");
-        setShowEasterEgg(true);
-        setEasterEggGrade(pickedGrade ?? null);
-        setRefineStage("queued");
+        openEasterEgg();
         return 0;
       }
       return 0;
@@ -172,8 +186,9 @@ export default function App() {
         <div className="bg-mesh-blob bg-mesh-blob-2" />
       </div>
       <div
-        className="pointer-events-none absolute inset-0 -z-0"
+        className="pointer-events-none absolute inset-0 -z-0 transition-opacity duration-700"
         aria-hidden="true"
+        style={{ opacity: 1 }}
       >
         <GradientASCII
           colors={themeColors}
@@ -324,11 +339,11 @@ export default function App() {
             )}
 
             {showEasterEgg && (
-              <>
+              <div className={`fade-panel ${easterEggVisible ? "fade-enter" : "fade-exit"}`}>
                 <CardHeader>
                   <button
                     type="button"
-                    onClick={() => setShowEasterEgg(false)}
+                    onClick={closeEasterEgg}
                     className="inline-flex items-center gap-1 text-xs lowercase text-muted-foreground hover:text-foreground"
                   >
                     <ArrowLeft className="size-3.5" /> go back
@@ -381,7 +396,7 @@ export default function App() {
                     />
                   )}
                 </CardContent>
-              </>
+              </div>
             )}
           </Card>
         </div>
