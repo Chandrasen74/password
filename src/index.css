@@ -55,6 +55,7 @@
   --ring: oklch(0.623 0.214 259);
   --success: oklch(0.696 0.17 162);
   --warning: oklch(0.769 0.188 70);
+  --warning-text: oklch(0.55 0.1 80);
   --info: oklch(0.623 0.214 259);
   --glow-shadow: 0 0 28px rgba(59, 130, 246, 0.28);
   --easter-bg: radial-gradient(circle at 50% 50%, #831843 0%, #000000 55%);
@@ -187,6 +188,7 @@
   --border: oklch(0.8 0.04 90 / 0.45);
   --input: oklch(0.8 0.04 90 / 0.45);
   --ring: oklch(0.631 0.236 157.4);
+  --warning-text: oklch(0.45 0.1 100);
 }
 [data-theme="grade-9"] {
   --mesh-color-1: #ef4444;

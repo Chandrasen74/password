@@ -266,7 +266,7 @@ export default function App() {
                     />
                   </Field>
                   {caps && (
-                    <p className="text-xs lowercase text-warning">{caps}</p>
+                    <p className="text-xs lowercase text-[var(--warning-text)]">{caps}</p>
                   )}
                   <Button
                     className="w-full soft-glow lowercase"
