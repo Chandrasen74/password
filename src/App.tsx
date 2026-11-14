@@ -152,7 +152,13 @@ export default function App() {
     };
   }, [showEasterEgg]);
 
-  const themeName = pickedGrade === 10 ? "grade-10" : pickedGrade === 9 ? "grade-9" : "default";
+  const themeName = showEasterEgg
+    ? "easter-egg"
+    : pickedGrade === 10
+      ? "grade-10"
+      : pickedGrade === 9
+        ? "grade-9"
+        : "default";
   const gradeBg =
     pickedGrade === 10
       ? "radial-gradient(circle at 50% 50%, #064e3b 0%, #000000 55%)"
@@ -166,20 +172,44 @@ export default function App() {
         ? ["#ef4444", "#fca5a5", "#f87171", "#b91c1c"]
         : ["#1e3fd8", "#f6f8ff", "#a5d8ff", "#38bdf8"];
 
-  const easterBg = "radial-gradient(circle at 50% 50%, #831843 0%, #000000 55%)";
   const easterColors = ["#ec4899", "#f9a8d4", "#f472b6", "#be185d"];
-  const themeBg = showEasterEgg ? easterBg : gradeBg;
+  const themeBg = showEasterEgg ? "var(--easter-bg)" : gradeBg;
   const themeColors = showEasterEgg ? easterColors : gradeColors;
   const asciiCharacters = showEasterEgg ? "♥♡❤❥♥♡" : " =+xX0S8#@";
-  const meshStyle = showEasterEgg
-    ? ({ "--mesh-color-1": "#ec4899", "--mesh-color-2": "#f9a8d4" } as React.CSSProperties)
-    : undefined;
+  const textColor = showEasterEgg
+    ? "#fbcfe8"
+    : pickedGrade === 10
+      ? "#0c4a6e"
+      : pickedGrade === 9
+        ? "#fecaca"
+        : "#e0f2fe";
+  const textMutedColor = showEasterEgg
+    ? "#f9a8d4"
+    : pickedGrade === 10
+      ? "#155e75"
+      : pickedGrade === 9
+        ? "#fca5a5"
+        : "#bae6fd";
+  const frameBackground = showEasterEgg
+    ? "#4a044e"
+    : pickedGrade === 10
+      ? "#064e3b"
+      : pickedGrade === 9
+        ? "#7f1d1d"
+        : "#27272a";
+  const frameInk = showEasterEgg
+    ? "#f9a8d4"
+    : pickedGrade === 10
+      ? "#6ee7b7"
+      : pickedGrade === 9
+        ? "#fca5a5"
+        : "#e2e8f0";
 
   return (
     <div
       className="app-shell relative text-foreground p-3 sm:p-4 theme-transition"
       data-theme={themeName}
-      style={{ background: themeBg, ...meshStyle }}
+      style={{ background: themeBg }}
     >
       <div className="bg-mesh" aria-hidden="true">
         <div className="bg-mesh-blob bg-mesh-blob-1" />
@@ -236,7 +266,7 @@ export default function App() {
                     />
                   </Field>
                   {caps && (
-                    <p className="text-xs lowercase text-yellow-400">{caps}</p>
+                    <p className="text-xs lowercase text-warning">{caps}</p>
                   )}
                   <Button
                     className="w-full soft-glow lowercase"
@@ -364,12 +394,8 @@ export default function App() {
                       width={300}
                       radius={16}
                       aspectRatio="3 / 4"
-                      background={
-                        easterEggGrade === 9 ? "#7f1d1d" : easterEggGrade === 10 ? "#064e3b" : "#27272a"
-                      }
-                      color={
-                        easterEggGrade === 9 ? "#ef4444" : easterEggGrade === 10 ? "#10b981" : "#f5f5f5"
-                      }
+                      background={frameBackground}
+                      color={frameInk}
                       stageDuration={250}
                       sweep
                       showStatus={false}
@@ -389,9 +415,7 @@ export default function App() {
                       blur={10}
                       distance={50}
                       loop={false}
-                      color={
-                        easterEggGrade === 9 ? "#ef4444" : easterEggGrade === 10 ? "#10b981" : "#f5f5f5"
-                      }
+                      color={textColor}
                       className="text-lg sm:text-xl text-center mb-2"
                     />
                   )}
