@@ -1,62 +1,85 @@
 # password
 
-A playful prank "password-protected secret page" rebuilt as a modern React + Vite app with animated visuals.
-
 **Live demo:** https://chandrasen74.github.io/password/  
 **Repository:** https://github.com/Chandrasen74/password
 
-![Screenshot](screenshot.png)
+![Screenshot of password](screenshot.png)
 
 ## Overview
-This project is a front-end prank/experiment: a fake password gate that reveals a themed secret page. Enter the password, pick a grade/theme, and the UI/background shifts with animated effects.
+`password` is a Node.js/TypeScript/React project.
+- **Primary language:** TypeScript
+- **Languages detected:** TypeScript (TSX), CSS, TypeScript, HTML, JavaScript, JavaScript (JSX)
+- **Stack/tech:** Node.js, TypeScript, React, Vite, Tailwind CSS, HTML, CSS
+- **npm scripts:** dev, build, preview
+- **Entry point:** `index.html`
+- **Key files:** `docs/index.html`, `index.html`, `package.json`, `tsconfig.json`, `vite.config.ts`
 
-### What it does
-- Password gate flow (try the classic password to get in, with a few joke responses)
-- Theme/grade selection that changes the page look and background behavior
-- Playful UI interactions (including prank "copy" actions)
-- Animated ASCII/gradient-style background visuals
+## Language & stack details
+- Languages: TypeScript (TSX), CSS, TypeScript, HTML, JavaScript, JavaScript (JSX)
+- Frameworks/tools/libraries: Node.js, TypeScript, React, Vite, Tailwind CSS, HTML, CSS
 
-## Tech stack / languages
-- **TypeScript** (primary)
-- **React 19**
-- **Vite 6**
-- **Tailwind CSS v4** (`@tailwindcss/vite`)
-- UI/components: `@base-ui/react`, coss ui component copies, `lucide-react` / icons
-- Animation/visuals: motion, custom `GradientASCII` component (WebGL2-based)
+## How to install & run
+### Prerequisites
+- [Node.js](https://nodejs.org/) (LTS recommended)
+- npm (included with Node.js)
+- TypeScript tooling is included via project dev dependencies
 
-## Prerequisites
-- **Node.js** (LTS recommended)
-- **npm** (comes with Node.js)
-
-## Install & run locally
+### Setup
 ```bash
 git clone https://github.com/Chandrasen74/password.git
 cd password
 npm install
+```
+
+### Run locally (development)
+```bash
 npm run dev
 ```
-Then open the local URL shown by Vite (typically `http://localhost:5173`).
 
-## Build & preview
+### Build / preview
 ```bash
-# type-check + production build (outputs to docs/ for GitHub Pages)
 npm run build
-
-# preview the production build locally
 npm run preview
 ```
 
-## Project structure
-- `src/` - app source (React/TypeScript), components, styles, assets
-  - `src/App.tsx` - main app shell/views/theme behavior
-  - `src/components/` - UI and visual components (including `GradientASCII`)
-- `public/` - static assets
-- `docs/` - built site output served by GitHub Pages
-- `index.html`, `vite.config.ts`, `tsconfig.json` - tooling/config
+### Available scripts
+- `npm run dev`
+- `npm run build`
+- `npm run preview`
 
-## Deployment
-Hosted on **GitHub Pages** from the `docs/` folder on `main`: https://chandrasen74.github.io/password/
+## Repository structure (top-level/sample)
+- `.gitignore`
+- `README.md`
+- `docs/assets/easter-egg-CgmYt6ee.webp`
+- `docs/assets/index-CHEbmSoT.js`
+- `docs/assets/index-GTJW4TBC.css`
+- `docs/favicon.svg`
+- `docs/index.html`
+- `index.html`
+- `package-lock.json`
+- `package.json`
+- `public/favicon.svg`
+- `screenshot.png`
+- `src/App.tsx`
+- `src/assets/easter-egg.webp`
+- `src/components/BlurText/BlurText.tsx`
+- `src/components/GradientASCII.css`
+- `src/components/GradientASCII.d.ts`
+- `src/components/GradientASCII.jsx`
+- `src/components/RefineFrame/RefineFrame.css`
+- `src/components/RefineFrame/RefineFrame.tsx`
+- `src/components/ui/alert.tsx`
+- `src/components/ui/button.tsx`
+- `src/components/ui/card.tsx`
+- `src/components/ui/field.tsx`
+- `src/components/ui/input.tsx`
+- `src/components/ui/spinner.tsx`
+- `src/index.css`
+- `src/lib/utils.ts`
+- `src/main.tsx`
+- `src/vite-env.d.ts`
+- `tsconfig.json`
+- `vite.config.ts`
 
-## Notes
-- This is a creative/prank experiment, not a real security mechanism.
-- Commits in this repo may be signed (Verified) depending on local git signing setup.
+## Status
+Documented with screenshot, language/stack details, and setup instructions as part of a profile-wide README update.
