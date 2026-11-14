@@ -1,59 +1,62 @@
 # password
 
-Prank password-protected secret page, rebuilt as a React + Vite app with [coss ui](https://github.com/cosscom/ui) components and an animated [GradientASCII](https://reactbits.dev/) background.
+A playful prank "password-protected secret page" rebuilt as a modern React + Vite app with animated visuals.
 
-**Git repo:** https://github.com/Chandrasen74/password.git
+**Live demo:** https://chandrasen74.github.io/password/  
+**Repository:** https://github.com/Chandrasen74/password
 
-## About
+![Screenshot](screenshot.png)
 
-A prank "password protected" page — type `password` to get in, pick a grade, and the background shifts between yellow (grade 9) and red (grade 10) with an animated ASCII gradient. Built as a React + Vite single page, deployed to GitHub Pages from `docs/`, with commits SSH-signed so they show as Verified.
+## Overview
+This project is a front-end prank/experiment: a fake password gate that reveals a themed secret page. Enter the password, pick a grade/theme, and the UI/background shifts with animated effects.
 
-## Live site
+### What it does
+- Password gate flow (try the classic password to get in, with a few joke responses)
+- Theme/grade selection that changes the page look and background behavior
+- Playful UI interactions (including prank "copy" actions)
+- Animated ASCII/gradient-style background visuals
 
-[https://chandrasen74.github.io/password/](https://chandrasen74.github.io/password/)
+## Tech stack / languages
+- **TypeScript** (primary)
+- **React 19**
+- **Vite 6**
+- **Tailwind CSS v4** (`@tailwindcss/vite`)
+- UI/components: `@base-ui/react`, coss ui component copies, `lucide-react` / icons
+- Animation/visuals: motion, custom `GradientASCII` component (WebGL2-based)
 
-Hosted on GitHub Pages from the `docs/` folder on `main`.
+## Prerequisites
+- **Node.js** (LTS recommended)
+- **npm** (comes with Node.js)
 
-## What it does
-
-- Enter password `password` to pass the gate (with a few joke responses).
-- Pick a grade — grade 9 theme turns the background yellow, grade 10 turns it red. The whole page (mesh blobs, ASCII gradient, and text colors) fades between themes.
-- "Copy" buttons swap email/password as a prank.
-- Escape closes the tab.
-
-## Stack
-
-- React 19, TypeScript, Vite 6
-- Tailwind CSS v4 (`@tailwindcss/vite`)
-- [coss ui](https://github.com/cosscom/ui) components on `@base-ui/react`: Button, Input, Card, Alert, Field
-- [GradientASCII](https://reactbits.dev/) — WebGL2 animated ASCII gradient background
-- `lucide-react` icons
-
-## Local development
-
+## Install & run locally
 ```bash
+git clone https://github.com/Chandrasen74/password.git
+cd password
 npm install
-npm run dev      # localhost:5173
-npm run build    # outputs to docs/ (base "./", ready for GitHub Pages)
-npm run preview  # serve the build locally
+npm run dev
+```
+Then open the local URL shown by Vite (typically `http://localhost:5173`).
+
+## Build & preview
+```bash
+# type-check + production build (outputs to docs/ for GitHub Pages)
+npm run build
+
+# preview the production build locally
+npm run preview
 ```
 
-## Repository structure
+## Project structure
+- `src/` - app source (React/TypeScript), components, styles, assets
+  - `src/App.tsx` - main app shell/views/theme behavior
+  - `src/components/` - UI and visual components (including `GradientASCII`)
+- `public/` - static assets
+- `docs/` - built site output served by GitHub Pages
+- `index.html`, `vite.config.ts`, `tsconfig.json` - tooling/config
 
-```
-docs/            # built site (served by GitHub Pages)
-src/
-  App.tsx        # app shell + views + grade themes
-  components/
-    GradientASCII.jsx   # animated background component
-    ui/          # coss ui component copies
-  index.css      # Tailwind v4 + theme tokens + mesh background
-index.html
-package.json
-vite.config.ts
-tsconfig.json
-```
+## Deployment
+Hosted on **GitHub Pages** from the `docs/` folder on `main`: https://chandrasen74.github.io/password/
 
-## Commit signing
-
-Commits are SSH-signed and show as **Verified** on GitHub.
+## Notes
+- This is a creative/prank experiment, not a real security mechanism.
+- Commits in this repo may be signed (Verified) depending on local git signing setup.
