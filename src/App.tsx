@@ -1,3 +1,9 @@
+/*
+ * Copyright (c) 2026 Chandrasen. All rights reserved.
+ * This source code is proprietary and confidential.
+ * Unauthorized copying, modification, distribution, or use is prohibited.
+ */
+
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, KeyRound, Mail, ShieldQuestion } from "lucide-react";
 import { Alert, AlertDescription } from "@/components/ui/alert";
